@@ -1,0 +1,71 @@
+#bb{ padding:50px 0 0 50px;width: 800px;height: 50px;}
+input{margin: 0;padding: 0;text-align:center;}
+#bb .box_year,#bb .box{
+	width: 60px;
+	height: 30px;
+	float: left;
+	position: relative;
+}	
+#bb .line{
+	width: 5px;
+	height: 30px;
+	float: left;
+	text-align: center;
+	line-height: 30px;
+  text-indent:9999px;
+  overflow: hidden;
+
+}
+#bb .line2{
+	width: 20px;
+	height: 30px;
+	float: left;
+	text-align: center;
+	line-height: 30px;
+}
+#bb .top_line_year, #bb .datainp_year,#bb .top_line,#bb .datainp
+{
+	top: 0;
+	width: 40px;
+	height: 20px;
+
+}
+#bb .TopUp{
+	  cursor: pointer;
+	  width: 0px;
+      height: 3px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid gray;
+      font-size: 0px;
+      line-height: 0px;
+      margin-bottom: 5px;
+      right: 0;
+      top: 0;
+      position: absolute;
+}
+#bb .TopUp:hover{
+	 border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid black;
+}
+#bb .BottomDown{
+		cursor: pointer;
+		width: 0px;
+        height:6px;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid black;
+        font-size: 0px;
+        line-height: 0px;
+        margin-top: 5px;
+        position: absolute;
+        right: 0;
+        bottom: 0
+     
+}
+#bb .BottomDown:hover{		
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid gray;
+}
