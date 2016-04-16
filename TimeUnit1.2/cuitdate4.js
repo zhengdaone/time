@@ -4,13 +4,13 @@
 打开时显示的是当前时间，当时间为个位时自动填0，限制了输入，只能输入数字。
 预设了两种不同风格分别为style1.css、style2.css，需通过调整html来切换样式显示。	
 */
-function Init(InstanceName){
+function CreateTimeUnit(InstanceName){
 	var _this_ = this;
 	this.InstanceName=InstanceName;
 	this.maxyear = 3000;
 	this.minyear = 1000;
 	this.inityear = 2000;
-	this.InitDate=function(){
+	this.InitDate=function(yyyy,mm,dd,hh,mi,ss){
 	var newdiv = document.getElementById("bb");
 		initdate=new Date(),
 	    month=(initdate.getMonth()+1).toString(),
@@ -36,67 +36,91 @@ function Init(InstanceName){
 	if(second.length==1){
 		second='0'+second;
 	}
-	var inithtml="<div class='box_year' >";
+	var inithtml="";
+	if(yyyy=="yyyy"){
+	inithtml="<div class='box_year' >";
 	inithtml+="<div class = 'top_line_year'><input class='datainp_year' maxlength='4' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' id='"+this.InstanceName+"_s_year' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始年' value='"+initdate.getFullYear()+"' ></div>";
 	inithtml+="<div class='Timebutton_year TopUp'   id='"+this.InstanceName+"_s_up_year' onselectstart='return false' onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_year')>+</div>";
 	inithtml+="<div class='Timebutton_year BottomDown'  id='"+this.InstanceName+"_s_down_year' onselectstart='return false' onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_year')>-</div></div>";
 	inithtml+="<div class='line'>-</div>";
+	}
 
-
+	if(mm=="mm"){
     inithtml+="<div div class='box'><div class = 'top_line'><input onpaste = 'return false' 	 class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_s_month' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始月' value='"+month+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'  id='"+this.InstanceName+"_s_up_month' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_month')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown' id='"+this.InstanceName+"_s_down_month' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_month')>-</div></div>"; 
 	inithtml+="<div class='line'>-</div>";
-
+	}
+	
+	if(dd=="dd"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_s_day' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始日' value='"+day+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'  id='"+this.InstanceName+"_s_up_day' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_day')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_s_down_day' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_day')>-</div></div>";
 	inithtml+="<div class='line'></div>";
+	}
 
+	if(hh=="hh"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_s_hour' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始时' value='"+hour+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_s_up_hour' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_hour')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown' id='"+this.InstanceName+"_s_down_hour' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_hour')>-</div></div>"; 
 	inithtml+="<div class='line'>:</div>";
+	}
 
+	if(mi=="mi"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_s_minute' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始分' value='"+minute+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'  id='"+this.InstanceName+"_s_up_minute' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_minute')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_s_down_minute' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_minute')>-</div></div>"; 
 	inithtml+="<div class='line'>:</div>";
+	}
 
+	if(ss=="ss"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_s_second' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='起始秒' value='"+second+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_s_up_second' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_up_second')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_s_down_second' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_s_down_second')>-</div></div>";
 	inithtml+="<div class='line2'>--</div>";
+	}
 
 
+	if(yyyy=="yyyy"){
 	inithtml+="<div div class='box_year'><div class = 'top_line_year'><input class='datainp_year' maxlength='4' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' id='"+this.InstanceName+"_e_year' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止年' value='"+initdate.getFullYear()+"' ></div>";
 	inithtml+="<div class='Timebutton_year TopUp'   id='"+this.InstanceName+"_e_up_year' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_year')>+</div>";
 	inithtml+="<div class='Timebutton_year BottomDown'  id='"+this.InstanceName+"_e_down_year' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_year')>-</div></div>";
 	inithtml+="<div class='line'>-</div>";
-
+	}
+	
+	if(mm=="mm"){
     inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_e_month' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止月' value='"+month+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_e_up_month' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_month')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_e_down_month' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_month')>-</div></div>"; 
 	inithtml+="<div class='line'>-</div>";
+	}
 
+	if(dd=="dd"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_e_day' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止日' value='"+day+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_e_up_day' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_day')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown' id='"+this.InstanceName+"_e_down_day' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_day')>-</div></div>"; 
 	inithtml+="<div class='line'></div>";
+	}
 
+	if(hh=="hh"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_e_hour' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止时' value='"+hour+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_e_up_hour' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_hour')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_e_down_hour' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_hour')>-</div></div>"; 
 	inithtml+="<div class='line'>:</div>";
+	}
 
+	if(mi=="mi"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_e_minute' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止分' value='"+minute+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'   id='"+this.InstanceName+"_e_up_minute' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_minute')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown'  id='"+this.InstanceName+"_e_down_minute' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_minute')>-</div></div>"; 
 	inithtml+="<div class='line'>:</div>";
+	}
 
+	if(ss=="ss"){
 	inithtml+="<div div class='box'><div class = 'top_line'><input class='datainp' maxlength='2' onclick='javascript:"+this.InstanceName+".scrollChangeNum(this)' onblur=javascript:"+this.InstanceName+".supply() onmouseout=javascript:"+this.InstanceName+".supply() id='"+this.InstanceName+"_e_second' type='text' oninput=javascript:"+this.InstanceName+".ValidateTime() placeholder='截止秒' value='"+second+"' ></div>";
 	inithtml+="<div class='Timebutton TopUp'  id='"+this.InstanceName+"_e_up_second' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_up_second')>+</div>";
 	inithtml+="<div class='Timebutton BottomDown' id='"+this.InstanceName+"_e_down_second' onselectstart='return false'  onclick=javascript:"+this.InstanceName+".change('"+this.InstanceName+"_e_down_second')>-</div></div>";
+	}
 	newdiv.innerHTML = inithtml;
 };
 	this.scrollChangeNum = function(obj){
@@ -114,34 +138,36 @@ function Init(InstanceName){
 				var e_minute = document.getElementById(id+"_e_minute");
 				var e_second = document.getElementById(id+"_e_second");
 				
-			    if(s_year.value>_this_.maxyear){
+			    if(s_year!=null&&s_year.value>_this_.maxyear){
 			    	s_year.value = _this_.inityear;
 				}
-				if(s_year.value < _this_.minyear || s_year.value==""){
+				if(s_year!=null){if(s_year.value < _this_.minyear || s_year.value==""){
 			    	s_year.value = _this_.inityear;
-				}
+				}}
 				
-			    if(e_year.value>_this_.maxyear){
+			    if(e_year!=null&&e_year.value>_this_.maxyear){
 			    	e_year.value =  _this_.inityear;
 				}
-				if(e_year.value< _this_.minyear || e_year.value==""){
+				if(e_year!=null){if(e_year.value< _this_.minyear || e_year.value==""){
 			    	e_year.value =  _this_.inityear;
-				}
+				}}
 				
-			    if(s_month.value>12){
+			    if(s_month!=null&&s_month.value>12){
 			    	s_month.value = '01';
 				}
-				if(s_month.value<1 || s_month.value==""){
+				if(s_month!=null&&(s_month.value<1 || s_month.value=="")){
 			    	s_month.value = 12;
 				}
 				
-			    if(e_month.value>12){
+			    if(e_month!=null&&e_month.value>12){
 			    	e_month.value = '01';
 				}
-				if(e_month.value<1 || e_month.value==""){
+				if(e_month!=null&&(e_month.value<1 || e_month.value=="")){
 			    	e_month.value = 12;
 				}
-					if(s_month.value==1||s_month.value==3||s_month.value==5||s_month.value==7||s_month.value==8||s_month.value==10||s_month.value==12)
+				
+				if(s_day!=null&&s_month!=null){
+					 if(s_month.value==1||s_month.value==3||s_month.value==5||s_month.value==7||s_month.value==8||s_month.value==10||s_month.value==12)
 				{
 				    if(s_day.value>31)s_day.value = '01';
 					if(s_day.value<1||s_day.value=="")s_day.value = 31;
@@ -153,7 +179,11 @@ function Init(InstanceName){
 				}				
 				else if(s_month.value==2)
 				{
-					if(((s_year.value % 4)==0) && ((s_year.value % 100)!=0) || ((s_year.value % 400)==0))
+					if(s_year==null){
+						if(s_day.value>28) {s_day.value = '01';} 					
+					else if(s_day.value<1||s_day.value=="") s_day.value = 28;
+					}
+					else if(((s_year.value % 4)==0) && ((s_year.value % 100)!=0) || ((s_year.value % 400)==0))
 					{
 
 					    if(s_day.value>29)  {s_day.value = '01';}
@@ -164,7 +194,12 @@ function Init(InstanceName){
 				    if(s_day.value>28) {s_day.value = '01';} 					
 					else if(s_day.value<1||s_day.value=="") s_day.value = 28;				
 				}
-			}				
+			}	
+				}else{
+					if(s_day.value>31)s_day.value = '01';
+					if(s_day.value<1||s_day.value=="")s_day.value = 31;
+				}
+			if(e_day!=null&&e_month!=null){
 				if(e_month.value==1||e_month.value==3||e_month.value==5||e_month.value==7||e_month.value==8||e_month.value==10||e_month.value==12)
 				{
 				    if(e_day.value>31)e_day.value = '01';
@@ -177,7 +212,11 @@ function Init(InstanceName){
 				}				
 				else if(e_month.value==2)
 				{
-					if(((e_year.value % 4)==0) && ((e_year.value % 100)!=0) || ((e_year.value % 400)==0))
+					if(e_year==null){
+						if(e_day.value>28) {e_day.value = '01';} 					
+					else if(e_day.value<1||e_day.value=="") e_day.value = 28;
+					}
+					else if(((e_year.value % 4)==0) && ((e_year.value % 100)!=0) || ((e_year.value % 400)==0))
 					{
 					    if(e_day.value>29)  e_day.value = '01';
 						if(e_day.value<1||e_day.value=="")  e_day.value = 29;
@@ -187,60 +226,67 @@ function Init(InstanceName){
 				    if(e_day.value>28) {e_day.value = '01';} 					
 					else if(e_day.value<1||e_day.value=="") e_day.value = 28;				
 				}
-			} 
+			}  
+				}else{
+					if(e_day.value>31)e_day.value = '01';
+					if(e_day.value<1||e_day.value=="")e_day.value = 31;
+				}
 
-				if(!isLeapYear(s_year.value)){	
+				if(s_year!=null){
+ 				if(!isLeapYear(s_year.value)){	
 				if(s_month.value==2&&s_day.value==29){
 					s_day.value="28";
 				}   	
 				}
-				
+				}
+				if(e_year!=null){
 				if(!isLeapYear(e_year.value)){
 				if(e_month.value==2&&e_day.value==29){
 				s_day.value="28";
 				}   	
+				} 
 				}
 				
 				
-			    if(e_hour.value>23){
+			    if(e_hour!=null&&e_hour.value>23){
 			    e_hour.value = '00';
 				}
-				if(e_hour.value<0&&e_hour.value!=""){
+				if(e_hour!=null&&(e_hour.value<0&&e_hour.value!="")){
 			    e_hour.value = 23;
 				}
 				
-			    if(s_hour.value>23){
+			    if(s_hour!=null&&s_hour.value>23){
 			    s_hour.value = '00';
 				}
-				if(s_hour.value<0&&s_hour.value!=""){
+				if(s_hour!=null&&(s_hour.value<0&&s_hour.value!="")){
 			    s_hour.value = 23;
 				}
 				
-			    if(s_minute.value>59){
+			    if(s_minute!=null&&s_minute.value>59){
 			    s_minute.value = '00';
 				}
-				if(s_minute.value<0&&s_minute.value!=""){
+				if(s_minute!=null&&(s_minute.value<0&&s_minute.value!="")){
 			    s_minute.value = 59;
 				}
 				
-			    if(e_minute.value>59){
+			    if(e_minute!=null&&e_minute.value>59){
 			    e_minute.value = '00';
 				}
-				if(e_minute.value<0&&e_minute.value!=""){
+				if(e_minute!=null&&(e_minute.value<0&&e_minute.value!="")){
 			    e_minute.value = 59;
 				}
 				
-			    if(s_second.value>59){
+			    if(s_second!=null&&s_second.value>59){
 			    s_second.value = '00';
 				}
-				if(s_second.value<0&&s_second!=""){
+				if(s_second!=null&&(s_second.value<0&&s_second!="")){
 			    s_second.value = 59;
 				}
 				
-			    if(e_second.value>59){
+			    if(e_second!=null&&e_second.value>59){
 			    e_second.value = '00';
 				}
-				if(e_second.value<0&&e_second!=""){
+				if(e_second!=null&&(e_second.value<0&&e_second!="")){
 			    e_second.value = 59;
 				}
 				
