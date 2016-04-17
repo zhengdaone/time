@@ -454,12 +454,16 @@ this.change=function(id){                //按键改变
 		if( year==""|| year==null){
 			document.getElementById(Cla+s_or_e+"_year").value=init;
 		}else{
-			var month=document.getElementById(Cla+s_or_e+"_month").value;
-			var day=document.getElementById(Cla+s_or_e+"_day").value;		
+			// var month=document.getElementById(Cla+s_or_e+"_month").value;
+			// var day=document.getElementById(Cla+s_or_e+"_day").value;		
+			var month=document.getElementById(Cla+s_or_e+"_month");
+			var day=document.getElementById(Cla+s_or_e+"_day");		
 			if(method === "up")	year=parseInt(year)+1;
 			else if(method === "down")year=parseInt(year)-1;
-			if(month == 2 && !isLeapYear(year)){
+			 if(month!=null&&day!=null){
+			if(month.value == 2 && !isLeapYear(year)&&day.value>28){
 			document.getElementById(Cla+s_or_e+"_day").value=28;
+			}
 		}
 		
 		if(year >max){			
@@ -477,20 +481,37 @@ this.change=function(id){                //按键改变
 		if(month === null || month === "" ){
 			document.getElementById(Cla+s_or_e+"_month").value='01';
 		}else{
-		var year=document.getElementById(Cla+s_or_e+"_year").value;
-		var day=document.getElementById(Cla+s_or_e+"_day").value;		
+		// var year=document.getElementById(Cla+s_or_e+"_year").value;
+		// var day=document.getElementById(Cla+s_or_e+"_day").value;		
+		var year=document.getElementById(Cla+s_or_e+"_year");
+		var day=document.getElementById(Cla+s_or_e+"_day");	
 			if(method === "up")month=parseInt(month)+1;
 			else if(method === "down")month=parseInt(month) -1;
-
+		if(day==null){
+			if(month>12){
+				document.getElementById(Cla+s_or_e+"_month").value='01';
+			}else if(month<1){
+				document.getElementById(Cla+s_or_e+"_month").value=12;
+			}
+		}else{
+			day=day.value;
 		if(!(month==1||month==3||month==5||month==7||month==8||month==10||month==12||month == 2)&&day>30){
 			document.getElementById(Cla+s_or_e+"_day").value=30;
 		}else if (month == 2) {
+			if(year==null){
+				if(day>28){
+			document.getElementById(Cla+s_or_e+"_day").value=28;
+			}
+			}else{
+				year=year.value;
 			if(!isLeapYear(year)){
 				if(day>28){
 			document.getElementById(Cla+s_or_e+"_day").value=28;
 		}
 		} else if(day > 29){
 			document.getElementById(Cla+s_or_e+"_day").value=29;
+		}
+			}
 		}
 		}
 		if(month>12){
@@ -511,8 +532,24 @@ this.change=function(id){                //按键改变
 		if(day==null||day==""){
 			document.getElementById(Cla+s_or_e+"_day").value='01';
 		}else{
-        var month=document.getElementById(Cla+s_or_e+"_month").value;
-		var year=document.getElementById(Cla+s_or_e+"_year").value;	
+        // var month=document.getElementById(Cla+s_or_e+"_month").value;
+		// var year=document.getElementById(Cla+s_or_e+"_year").value;	
+		var month=document.getElementById(Cla+s_or_e+"_month");
+		var year=document.getElementById(Cla+s_or_e+"_year");
+		if(month==null){
+				if(method === "up")	day=parseInt(day)+1;
+			else if(method === "down")	day=parseInt(day)-1;
+			if(day.toString().length==1){
+				day='0'+day.toString();
+			}
+			document.getElementById(Cla+s_or_e+"_day").value=day;
+			if(day>31){
+			document.getElementById(Cla+s_or_e+"_day").value='01';
+			}else if(day<1){
+				document.getElementById(Cla+s_or_e+"_day").value=31;
+			}
+		}else{
+		month=month.value;
 		month=parseInt(month);	
 		if(method === "up")	day=parseInt(day)+1;
 			else if(method === "down")	day=parseInt(day)-1;
@@ -525,20 +562,25 @@ this.change=function(id){                //按键改变
 			if(day>31){
 			document.getElementById(Cla+s_or_e+"_day").value='01';
 			}
+		}
 			else if(day<1){
 				if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
 				document.getElementById(Cla+s_or_e+"_day").value=31;
 				}else if(month==4||month==6||month==9||month==11){
 				document.getElementById(Cla+s_or_e+"_day").value=30;	
 				}else if(month==2){
+					if(year==null){
+						document.getElementById(Cla+s_or_e+"_day").value=28;	
+					}else{
+						year=year.value;
 				if(!isLeapYear(year)){
 				document.getElementById(Cla+s_or_e+"_day").value=28;	
 				}else{
 				document.getElementById(Cla+s_or_e+"_day").value=29;	
-				}	
+				}
+					}				
 				}
 			}
-		}
 		else if((month==4||month==6||month==9||month==11))
 		{
 			if(day.toString().length==1){
@@ -554,6 +596,16 @@ this.change=function(id){                //按键改变
 			}
 		}
 		else if(month==2){
+			if(year==null){
+						if(day.toString().length==1)
+					day='0'+day.toString();				
+				document.getElementById(Cla+s_or_e+"_day").value=day;
+				if(day>28){
+					document.getElementById(Cla+s_or_e+"_day").value='01';
+				}else if(day < 1)				
+					document.getElementById(Cla+s_or_e+"_day").value='28';		
+					}else{
+					year=year.value;
 			if(isLeapYear(year))
 			{
 				if(day.toString().length==1)
@@ -573,7 +625,9 @@ this.change=function(id){                //按键改变
 					if(day<1)
 						document.getElementById(Cla+s_or_e+"_day").value='28';
 				}
+		}
 			}
+		}
 		}
 	}
 	function buttonDelectHour(Cla,s_or_e,method)
@@ -653,62 +707,62 @@ this.supply=function(){//格式填充
 	var e_minute = document.getElementById(this.InstanceName+"_e_minute");
 	var e_second = document.getElementById(this.InstanceName+"_e_second");
 
-	if(s_month.value==0){
+	if(s_month!=null&&s_month.value==0){
 			document.getElementById(this.InstanceName+"_s_month").value='01';
 		}
 
-		if(e_month.value==0){
+		if(e_month!=null&&e_month.value==0){
 			document.getElementById(this.InstanceName+"_e_month").value='01';
 		}
-if(s_day.value==0){
+if(s_day!=null&&s_day.value==0){
 			document.getElementById(this.InstanceName+"_s_day").value='01';
 		}
-		if(e_day.value==0){
+		if(e_day!=null&&e_day.value==0){
 			document.getElementById(this.InstanceName+"_e_day").value='01';
 		}
-	if(s_month.value.length==1){
+	if(s_month!=null&&s_month.value.length==1){
 	str ='0'+s_month.value;
 	document.getElementById(this.InstanceName+"_s_month").value=str.substring(str.length-2,str.length);
 	}
-	if(s_day.value.length==1){
+	if(s_day!=null&&s_day.value.length==1){
 	str ='0'+s_day.value;
 	document.getElementById(this.InstanceName+"_s_day").value=str.substring(str.length-2,str.length);
 	}
-	if(s_hour.value.length==1){
+	if(s_hour!=null&&s_hour.value.length==1){
 	str ='0'+s_hour.value;
 	document.getElementById(this.InstanceName+"_s_hour").value=str.substring(str.length-2,str.length);
 	}
-	if(s_minute.value.length==1){
+	if(s_minute!=null&&s_minute.value.length==1){
 	str ='0'+s_minute.value;
 	document.getElementById(this.InstanceName+"_s_minute").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(s_second.value.length==1){
+	if(s_second!=null&&s_second.value.length==1){
 	str ='0'+s_second.value;
 	document.getElementById(this.InstanceName+"_s_second").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(e_month.value.length==1){
+	if(e_month!=null&&e_month.value.length==1){
 	str ='0'+e_month.value;
 	document.getElementById(this.InstanceName+"_e_month").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(e_day.value.length==1){
+	if(e_day!=null&&e_day.value.length==1){
 	str ='0'+e_day.value;
 	document.getElementById(this.InstanceName+"_e_day").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(e_hour.value.length==1){
+	if(e_hour!=null&&e_hour.value.length==1){
 	str ='0'+e_hour.value;
 	document.getElementById(this.InstanceName+"_e_hour").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(e_minute.value.length==1){
+	if(e_minute!=null&&e_minute.value.length==1){
 	str ='0'+e_minute.value;
 	document.getElementById(this.InstanceName+"_e_minute").value=str.substring(str.length-2,str.length);
 	}
 	
-	if(e_second.value.length==1){
+	if(e_second!=null&&e_second.value.length==1){
 	str ='0'+e_second.value;
 	document.getElementById(this.InstanceName+"_e_second").value=str.substring(str.length-2,str.length);
 	}
@@ -730,20 +784,45 @@ this.ValidateTime=function(){                     //输入改变
 	var e_minute = document.getElementById(this.InstanceName+"_e_minute");
 	var e_second = document.getElementById(this.InstanceName+"_e_second");
 
+	if(s_year!=null){
 	s_year.value=s_year.value.replace(/\D/g,'');
+	}
+	if(s_month!=null){
  	s_month.value=s_month.value.replace(/\D/g,'');
+	}
+	if(s_day!=null){
  	s_day.value=s_day.value.replace(/\D/g,'');
+	}
+	if(s_hour!=null){
  	s_hour.value=s_hour.value.replace(/\D/g,'');
+	}
+	if(s_minute!=null){
     s_minute.value=s_minute.value.replace(/\D/g,'');
+	}
+	if(s_second!=null){
     s_second.value=s_second.value.replace(/\D/g,'');
-    e_year.value=e_year.value.replace(/\D/g,'');
+	}
+    if(e_year!=null){
+	e_year.value=e_year.value.replace(/\D/g,'');
+	}
+	if(e_month!=null){
  	e_month.value=e_month.value.replace(/\D/g,'');
+	}
+	if(e_day!=null){
  	e_day.value=e_day.value.replace(/\D/g,'');
+	}
+	if(e_hour!=null){
  	e_hour.value=e_hour.value.replace(/\D/g,'');
+	}
+	if(e_minute!=null){
     e_minute.value=e_minute.value.replace(/\D/g,'');
+	}
+	if(e_second!=null){
     e_second.value=e_second.value.replace(/\D/g,'');
+	}
 
 	var _this_ = this;
+	if(s_year!=null){
 	s_year.onkeyup = function(){
 	    this.value=this.value.replace(/\D/g,'');
 		this.value=this.value.replace(/\b(0+)/gi,"");
@@ -751,9 +830,10 @@ this.ValidateTime=function(){                     //输入改变
 		    s_year.value = _this_.inityear;
 		if(s_year.value< 0 && s_year.value != " ")
 	    	s_year.value = _this_.inityear;
-		
+	}
 	}
 	
+	if(e_year!=null){
 	e_year.onkeyup = function(){
 	    this.value=this.value.replace(/\D/g,'');
 		this.value=this.value.replace(/\b(0+)/gi,"");
@@ -764,22 +844,34 @@ this.ValidateTime=function(){                     //输入改变
 	  		  e_year.value = _this_.inityear;
 		}
 	} 
-
+	}
+	
+	if(s_month!=null){
 	s_month.onkeyup = function(){
 	    if(s_month.value>12){
 	 	    s_month.value = 1;
 		}
-		if(s_month.value==0&&s_month.value!=""){
+		/* if(s_month.value==0&&s_month.value!=""){
 		    s_month.value = 12;
-		}
+		} */
+	}
 	}
 	
+	if(e_month!=null){
 	e_month.onkeyup = function(){
 	    if(e_month.value>12){
 	   		 e_month.value = 1;
 		}	
 	}
+	}
 	
+	if(s_month==null){
+		s_day.onkeyup = function(){
+	  	    if(s_day.value>31){
+	   			 s_day.value = 1;
+		    }			
+		 }
+	}else if(s_day!=null){
 	if(s_month.value==1||s_month.value==3||s_month.value==5||s_month.value==7||s_month.value==8||s_month.value==10||s_month.value==12){
 		s_day.onkeyup = function(){
 	  	    if(s_day.value>31){
@@ -809,9 +901,17 @@ this.ValidateTime=function(){                     //输入改变
 		}
 	
 		}
-	}		
+	}
+	}	
 }
 	
+	if(e_month==null){
+		e_day.onkeyup = function(){
+    if(e_day.value>31){
+   		 e_day.value = 1;
+	}
+	}
+	}else if(e_day!=null){
 	if(e_month.value==1||e_month.value==3||e_month.value==5||e_month.value==7||e_month.value==8||e_month.value==10||e_month.value==12){
 	e_day.onkeyup = function(){
     if(e_day.value>31){
@@ -839,11 +939,12 @@ this.ValidateTime=function(){                     //输入改变
     if(e_day.value>28){
     e_day.value = 1;
 	}
-	
+	}
 	}
 	}		
 	} 
 	
+	if(e_hour!=null){
 	e_hour.onkeyup = function(){
 	    if(e_hour.value>23){
 	 		   e_hour.value = 0;
@@ -852,7 +953,9 @@ this.ValidateTime=function(){                     //输入改变
 	  		  e_hour.value = 23;
 		}
 	}
+	}
 	
+	if(s_hour!=null){
 	s_hour.onkeyup = function(){
 	    if(s_hour.value>23){
 	  		  s_hour.value = 0;
@@ -861,7 +964,9 @@ this.ValidateTime=function(){                     //输入改变
 	  		  s_hour.value = 23;
 		}
 	}
+	}
 	
+	if(s_minute!=null){
 	s_minute.onkeyup = function(){
 	    if(s_minute.value>59){
 	    	s_minute.value = 0;
@@ -870,7 +975,9 @@ this.ValidateTime=function(){                     //输入改变
 	   		 s_minute.value = 59;
 		}
 	}
+	}
 	
+	if(e_minute!=null){
 	e_minute.onkeyup = function(){
 	    if(e_minute.value>59){
 	   		  e_minute.value = 0;
@@ -879,7 +986,9 @@ this.ValidateTime=function(){                     //输入改变
 	  		  e_minute.value = 59;
 		}
 	}
+	}
 	
+	if(s_second!=null){
 	s_second.onkeyup = function(){
 	    	if(s_second.value>59){
 	  		  s_second.value = 0;
@@ -888,7 +997,9 @@ this.ValidateTime=function(){                     //输入改变
 	  		  s_second.value = 59;
 		}
 	}
+	}
 	
+	if(e_second!=null){
 	e_second.onkeyup = function(){
 	    if(e_second.value>59){
 	   		 e_second.value = 0;
@@ -897,20 +1008,25 @@ this.ValidateTime=function(){                     //输入改变
 	    	 e_second.value = 59;
 		}
 	}
+	}
 	
+	if(s_year!=null&&s_month!=null&&s_day!=null){
 	if(!(((s_year.value % 4)==0) && ((s_year.value % 100)!=0) || ((s_year.value % 400)==0)))
 	{
 		if(s_month.value==2&&s_day.value==29){
 			document.getElementById(this.InstanceName+"_s_day").value="28";
 					}   	
 	}
+	}
 	
+	if(e_year!=null&&e_month!=null&&e_day!=null){
 	if(!(((e_year.value % 4)==0) && ((e_year.value % 100)!=0) || ((e_year.value % 400)==0)))
 	{
 		if(e_month.value==2&&e_day.value==29)
 		{
 			document.getElementById(this.InstanceName+"_e_day").value="28";
 		}   	
+	}
 	}
 	
 	};

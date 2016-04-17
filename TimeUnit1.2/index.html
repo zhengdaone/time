@@ -7,9 +7,11 @@
 <script type="text/javascript" src="cuitdate4.js"></script> 
 <link rel="stylesheet" type="text/css" href="style2.css">
 <script>
+//自定义时间格式,年(yyyy),月(mm),日(dd),时(hh),分(mi),秒(ss)。在初始化时
+//在引号里加入或删除相应代号即可显示或不显示时间选项 
 	var oCalChs=new CreateTimeUnit("oCalChs"); 
 	function tt(){
-	oCalChs.InitDate("","","dd","hh","","");
+	oCalChs.InitDate("yyyy","mm","dd","hh","mi","ss");
 	}
 	/*function getTime(){
 		var stY = document.getElementById("oCalChs_Yeart1").value;
